@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/bin": true,
+			"**/obj": true,
+			"**/node_modules": true,
+			"**/publish": true
+		},
+		"search.exclude": {
+			"**/bin": true,
+			"**/obj": true,
+			"**/node_modules": true,
+			"**/publish": true
+		}
+	}
+}

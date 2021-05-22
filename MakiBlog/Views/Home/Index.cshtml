@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center" id="blog-title">
+    <h1 class="display-4">Maki Blog</h1>
+    <p>study and share, a learning philosophy</p>
+</div>
+
+<div class="alert alert-info show" id="connection-status"></div>
+
+<div class="blog-list card-columns" id="blog-list">
+</div>
+
+<div class="center">
+    <button class="btn btn-primary" onclick="pageEvents.loadMoreBlogPosts();">ver mais</button>
+    <br /><br />
+</div>
+
+<div class="card-columns">
+    <div class="card">
+        <div class="card-body form-group ">
+            <form class="push-group push-form">
+            <h4>Push Notification sample</h4>
+            <label for="topic">Title</label>
+            <input type="text" name="topic" class="form-control" />
+            <label for="notification">Text</label>
+            <input type="text" name="notification" class="form-control" />            
+            <button type="submit" class="btn btn-primary push-notification-button">Send</button>
+            <div class="alert push-response invisible" role="alert"></div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Camera Photo taker sample</h4>
+            <input type="file" accept="image/*" capture="camera" />
+        </div>
+    </div>  
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Camera Recording sample</h4>
+            <input type="file" accept="video/*" capture="camcorder">
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Microphone Recording sample</h4>
+            <input type="file" accept="audio/*" capture="microphone">
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Geolocation sample</h4>
+            <div>
+                <button onclick="pageEvents.getGeolocation();" type="button" class="btn btn-primary" id="address-button">Click here to get your address</button>
+                <br /><br />
+            </div>
+            <div>
+                <div id="address-found-input" style="display:none;">City/State: <input id="address-found" type="text" /></div>
+                <br /><br />
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Vibration sample</h4>
+            <div>
+                <button type="button" id="vibrar-celular" onclick="pageEvents.vibrate();" class="btn btn-primary">Vibrar celular</button>
+                <br /><br />
+            </div>
+        </div>
+    </div>    
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Canvas sample</h4>            
+            <div id="canvas">
+            </div>
+            <div>
+                <div id="rotation-info"></div>
+                <br /><br />
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Payment</h4>
+            <div>
+                <button onclick="pageEvents.payment();" class="btn btn-primary">buy me a juice!</button>
+                <br /><br />
+                <div class="payment-response"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body form-group ">
+            <h4>Copy and Paste</h4>
+            <div>
+                <textarea type="text" id="copy-and-paste" class="form-control"></textarea>
+                <button id="copyBtn" onclick="pageEvents.copy()" class="btn btn-primary">copy to clipboard</button>
+                <button onclick="pageEvents.paste();" class="btn btn-primary">paste from clipboard</button>                
+                <br /><br />
+                <div class="payment-response"></div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<div id="blog-item-container"></div>
+
+<script id="blog-card" type="text/template">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{PostId}} - {{Title}}</h5>
+            <p class="card-text">{{ShortDescription}}</p>
+            <button onclick="pageEvents.loadBlogPost('{{Link}}','{{Size}}');" class="btn btn-primary">ir</button>
+        </div>
+    </div>
+</script>
+<script id="blog-item" type="text/template">
+    <div id="{{Link}}" class="blog-item">
+        {{Content}}
+    </div>
+    <div>
+        <a href="#blog-title" class="btn btn-primary blog-item-close">voltar</a>
+    </div>
+    <br />
+    <div>
+        <img src="/images/{{Link}}.png" />
+    </div>
+    <br />
+    <div>
+        <button class="btn btn-primary download-start" onclick="pageEvents.setBackgroundFetch('{{Link}}',{{Size}});">download to watch offline</button>
+    </div>
+    <br />    
+</script>
+
+<script id="blog-content-not-found" type="text/template">
+    <h1>
+        Ups, the article is not in the cache!
+    </h1>
+    <div>
+        Do you want to save the article to read later and be informed when available?
+    </div>
+    <br />
+    <button class="btn btn-primary download-start" onclick="pageEvents.setBackgroundFetch('{{Link}}');">Yes!</button>
+    <br />
+    <br />
+    <div class="download-response"></div>
+    <div id="status-download" style="display:none;">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+        </div>
+        <div class="text-success">
+            <p>done!</p>
+            <button class="btn btn-success" onclick="pageEvents.loadBlogPost('{{Link}}');">ler!</button>
+        </div>
+    </div>
+
+</script>
